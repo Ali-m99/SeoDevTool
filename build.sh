@@ -8,7 +8,4 @@ pip install -r requirements.txt
 python manage.py collectstatic --noinput
 
 # Run migrations
-python manage.py migrate
-
-# Make sure the script is executable
-chmod +x build.sh 
+python manage.py migrate 
