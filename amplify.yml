@@ -2,15 +2,22 @@ version: 1
 applications:
   - frontend:
       phases:
-        build:
+        preBuild:
           commands:
             - pip install --upgrade pip
             - pip install -r requirements.txt
+        build:
+          commands:
             - python manage.py collectstatic --noinput
       artifacts:
-        baseDirectory: /
+        baseDirectory: .
         files:
           - '**/*'
+        discard-paths: no
+        rewrite:
+          - source: '</^[^.]+$|\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf|map|json)$)([^.]+$)/>'
+            target: '/app.py'
+            status: '200'
       cache:
         paths:
           - .pip-cache/
