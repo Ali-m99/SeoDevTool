@@ -1,6 +1,6 @@
 version: 1
 applications:
-  - backend:
+  - frontend:
       phases:
         build:
           commands:
