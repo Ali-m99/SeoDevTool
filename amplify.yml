@@ -1,0 +1,17 @@
+version: 1
+applications:
+  - backend:
+      phases:
+        build:
+          commands:
+            - pip install --upgrade pip
+            - pip install -r requirements.txt
+            - python manage.py collectstatic --noinput
+      artifacts:
+        baseDirectory: /
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - .pip-cache/
+    appRoot: /

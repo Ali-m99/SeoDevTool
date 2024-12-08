@@ -1,0 +1,12 @@
+{
+    "projectName": "SeoDevTool",
+    "defaultEditor": "code",
+    "frontend": {
+        "config": {
+            "SourceDir": ".",
+            "DistributionDir": "staticfiles",
+            "BuildCommand": "python manage.py collectstatic --noinput",
+            "StartCommand": "python manage.py runserver"
+        }
+    }
+} 

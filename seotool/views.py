@@ -9,20 +9,25 @@ import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import cmudict
 
-# Set a custom directory for NLTK data in project folder
-nltk_data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'nltk_data')
-if not os.path.exists(nltk_data_dir):
-    os.makedirs(nltk_data_dir)
+try:
+    # Try to use existing NLTK data
+    nltk.data.find('tokenizers/punkt')
+    nltk.data.find('corpora/cmudict')
+except LookupError:
+    # If NLTK data is not found, download it
+    nltk_data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'nltk_data')
+    if not os.path.exists(nltk_data_dir):
+        os.makedirs(nltk_data_dir)
+    
+    nltk.data.path.append(nltk_data_dir)
+    nltk.download('punkt', download_dir=nltk_data_dir, quiet=True)
+    nltk.download('cmudict', download_dir=nltk_data_dir, quiet=True)
 
-# Set the NLTK data path
-nltk.data.path.append(nltk_data_dir)
-
-# Now download the necessary resources into this folder
-nltk.download('punkt', download_dir=nltk_data_dir)
-nltk.download('cmudict', download_dir=nltk_data_dir)
-nltk.download('punkt_tab', download_dir=nltk_data_dir)
-
-d = cmudict.dict()
+# Initialize cmudict
+try:
+    d = cmudict.dict()
+except:
+    d = {}  # Fallback if cmudict fails to load
 
 def home(request):
     return render(request, "home.html")
