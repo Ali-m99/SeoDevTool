@@ -14,4 +14,4 @@ applications:
       cache:
         paths:
           - .pip-cache/
-    appRoot: /
+      appRoot: .
