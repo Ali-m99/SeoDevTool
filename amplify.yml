@@ -14,10 +14,22 @@ applications:
         files:
           - '**/*'
         discard-paths: no
-        rewrite:
-          - source: '</^[^.]+$|\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf|map|json)$)([^.]+$)/>'
-            target: '/app.py'
-            status: '200'
+      customHeaders:
+        - pattern: '**/*'
+          headers:
+            - key: 'Strict-Transport-Security'
+              value: 'max-age=31536000; includeSubDomains'
+            - key: 'X-Frame-Options'
+              value: 'SAMEORIGIN'
+            - key: 'X-XSS-Protection'
+              value: '1; mode=block'
+      rewrites:
+        - source: '/<*>'
+          target: '/index.html'
+          status: '200'
+        - source: '</^[^.]+$|\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf|map|json)$)([^.]+$)/>'
+          target: '/index.py'
+          status: '200'
       cache:
         paths:
           - .pip-cache/
